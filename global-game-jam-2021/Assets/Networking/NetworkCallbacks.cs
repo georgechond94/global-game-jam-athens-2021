@@ -9,5 +9,6 @@ public class NetworkCallbacks : GlobalEventListener
     {
         var spawnPos = new Vector3(Random.Range(-8, 8), 0, Random.Range(-8, 8));
         BoltNetwork.Instantiate(cubePrefab, spawnPos, Quaternion.identity);
+        
     }
 }
