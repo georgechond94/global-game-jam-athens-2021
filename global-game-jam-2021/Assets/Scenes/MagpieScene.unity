@@ -312,15 +312,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8d94525f1055b984e9c49c5c9657300d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 194.16
+      value: 194.606
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8d94525f1055b984e9c49c5c9657300d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.337
+      value: -3.155
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8d94525f1055b984e9c49c5c9657300d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -123.55
+      value: -119.92
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8d94525f1055b984e9c49c5c9657300d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -354,5 +354,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: magpie
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8d94525f1055b984e9c49c5c9657300d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d94525f1055b984e9c49c5c9657300d, type: 3}
+--- !u!1 &972889186 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8d94525f1055b984e9c49c5c9657300d, type: 3}
+  m_PrefabInstance: {fileID: 972889185}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &972889187
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972889186}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 99c7e444ddbe0f546a6589edc1fe270e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
