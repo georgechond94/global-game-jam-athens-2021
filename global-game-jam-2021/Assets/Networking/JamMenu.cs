@@ -25,11 +25,11 @@ public class JamMenu : GlobalEventListener
 
     public override void SessionListUpdated(Map<Guid, UdpSession> sessionList)
     {
-       foreach (var session in sessionList)
+        foreach (var session in sessionList)
         {
             UdpSession photonSession = session.Value as UdpSession;
-
-            if(photonSession.Source == UdpSessionSource.Photon)
+            
+            if (photonSession.Source == UdpSessionSource.Photon)
             {
                 BoltMatchmaking.JoinSession(photonSession);
             }
