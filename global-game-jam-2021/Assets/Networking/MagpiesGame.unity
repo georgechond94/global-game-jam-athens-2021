@@ -532,7 +532,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 8548244925077246412, guid: 5b092c678d384674694ce2969a382b73, type: 3}
-  throwablePrefab: {fileID: 1350553465962276259, guid: 463fe969b9c718547aa669931ef79b68, type: 3}
+  throwablePrefab: {fileID: 5471133474871111699, guid: 04a743edbdf64604e825f45c84f28fcb, type: 3}
 --- !u!1 &694017054
 GameObject:
   m_ObjectHideFlags: 0
