@@ -8,6 +8,7 @@ TagManager:
   - VirtualCamera
   - VirtualCameraFocus
   - Throwable
+  - Camera
   layers:
   - Default
   - TransparentFX

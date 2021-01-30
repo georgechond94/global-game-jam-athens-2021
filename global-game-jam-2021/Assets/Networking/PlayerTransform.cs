@@ -14,6 +14,6 @@ public class PlayerTransform : Bolt.EntityBehaviour<IFarmerState>
     // Update is called once per frame
     public override void SimulateOwner()
     {
-        CustomEvent.Trigger(gameObject, "SimulateOwner");
+        //CustomEvent.Trigger(gameObject, "SimulateOwner");
     }
 }

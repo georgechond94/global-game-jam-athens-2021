@@ -14,7 +14,7 @@ public class JamMenu : GlobalEventListener
     
     public override void BoltStartDone()
     {
-        BoltMatchmaking.CreateSession(sessionID: "test", sceneToLoad: "MagpiesGame");
+        BoltMatchmaking.CreateSession(sessionID: "test", sceneToLoad: BoltScenes.Level);
     }
 
     //called from join game button

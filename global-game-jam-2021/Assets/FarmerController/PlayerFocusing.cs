@@ -25,8 +25,7 @@ public class PlayerFocusing : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var focusPressed = Variables.Object(this).Get<bool>("FocusPressed");
-        if (focusPressed && !aimCamera.gameObject.activeInHierarchy)
+        if (Input.GetButton("Fire2") && !aimCamera.gameObject.activeInHierarchy)
         {
             mainCamera.gameObject.SetActive(false);
             aimCamera.gameObject.SetActive(true);
@@ -34,7 +33,7 @@ public class PlayerFocusing : MonoBehaviour
 
 
         }
-        else if (!focusPressed && !mainCamera.gameObject.activeInHierarchy)
+        else if (!Input.GetButton("Fire2") && !mainCamera.gameObject.activeInHierarchy)
         {
             mainCamera.gameObject.SetActive(true);
             aimCamera.gameObject.SetActive(false);

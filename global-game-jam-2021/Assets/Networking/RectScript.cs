@@ -24,11 +24,11 @@ public class RectScript : MonoBehaviour
     {
         if (IsMoving)
         {
-            currectSize = Mathf.Lerp(currectSize, maxSize, Time.deltaTime * speed);
+            currectSize = Mathf.Lerp(currectSize, maxSize, BoltNetwork.FrameDeltaTime * speed);
         }
         else
         {
-            currectSize = Mathf.Lerp(currectSize, restingSize, Time.deltaTime * speed);
+            currectSize = Mathf.Lerp(currectSize, restingSize, BoltNetwork.FrameDeltaTime * speed);
         }
         reticle.sizeDelta = new Vector2(currectSize, currectSize);
     }
