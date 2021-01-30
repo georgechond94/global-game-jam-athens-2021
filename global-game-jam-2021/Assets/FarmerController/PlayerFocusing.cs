@@ -9,8 +9,6 @@ using UnityEngine;
 
 public class PlayerFocusing : MonoBehaviour
 {
-    [Range(50f,250f)]
-    public float reticleSize;
     public RectTransform ReticleTransform;
     private CinemachineVirtualCamera mainCamera;
     private CinemachineVirtualCamera aimCamera;
@@ -27,7 +25,6 @@ public class PlayerFocusing : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ReticleTransform.sizeDelta = new Vector2(reticleSize, reticleSize);
         var focusPressed = Variables.Object(this).Get<bool>("FocusPressed");
         if (focusPressed && !aimCamera.gameObject.activeInHierarchy)
         {

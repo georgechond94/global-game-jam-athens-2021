@@ -532,6 +532,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 8548244925077246412, guid: 5b092c678d384674694ce2969a382b73, type: 3}
+  throwablePrefab: {fileID: 1350553465962276259, guid: 463fe969b9c718547aa669931ef79b68, type: 3}
 --- !u!1 &694017054
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,7 +603,7 @@ Camera:
   m_GameObject: {fileID: 694017054}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -1077,7 +1078,7 @@ Transform:
   - {fileID: 765828325}
   - {fileID: 694017058}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1187997977
 GameObject:
@@ -1841,7 +1842,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1792494757
 GameObject:
@@ -2184,7 +2185,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4845717850488797510, guid: 7a13ecb0a44ad7142922882aa6816cdf, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4845717850488797510, guid: 7a13ecb0a44ad7142922882aa6816cdf, type: 3}
       propertyPath: m_AnchorMax.x

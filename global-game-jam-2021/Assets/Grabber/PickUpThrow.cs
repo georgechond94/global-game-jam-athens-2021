@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class PickUpThrow : MonoBehaviour
 {
-
-    public Transform ObjectHolder;
     public float ThrowForce;
-    public bool carryObject;
-    public GameObject Item;
-    public bool IsThrowable;
+    private bool carryObject;
+    private GameObject Item;
+    private bool IsThrowable;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,45 +17,36 @@ public class PickUpThrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButton("Fire3"))
+        if (Item == null && Input.GetButton("Fire3"))
         {
-            RaycastHit hit;
             Ray directionRay = new Ray(transform.position, transform.forward);
-            if(Physics.Raycast(directionRay,out hit, 2f))
+            if (Physics.Raycast(directionRay, out var hit, 2f))
             {
-                if(hit.collider.tag == "Object")
+                if (hit.collider.tag == "Object")
                 {
                     carryObject = true;
                     IsThrowable = true;
-                    if(carryObject == true)
-                    {
-                        Item = hit.collider.gameObject;
-                        Item.transform.SetParent(ObjectHolder);
-                        Item.gameObject.transform.position = ObjectHolder.position;
-                        Item.GetComponent<Rigidbody>().isKinematic = true;
-                        Item.GetComponent<Rigidbody>().useGravity = false;
-                    }
+
+                    Item = hit.collider.gameObject;
+                    Item.transform.SetParent(transform);
+                    Item.gameObject.transform.position = transform.position;
+                    Item.GetComponent<Rigidbody>().isKinematic = true;
+                    Item.GetComponent<Rigidbody>().useGravity = false;
+
                 }
-            }    
-        
+            }
+
         }
-      
-        if(carryObject == false)
+
+        if (Item != null && Input.GetButton("Fire1") && IsThrowable)
         {
-            ObjectHolder.DetachChildren();
+            transform.DetachChildren();
             Item.GetComponent<Rigidbody>().isKinematic = false;
             Item.GetComponent<Rigidbody>().useGravity = true;
-        }
-        if(Input.GetButton("Fire1"))
-        {
-            if (IsThrowable)
-            {
-                ObjectHolder.DetachChildren();
-                Item.GetComponent<Rigidbody>().isKinematic = false;
-                Item.GetComponent<Rigidbody>().useGravity = true;
-                Item.GetComponent<Rigidbody>().AddForce(transform.forward * ThrowForce);
-            }
-           
+            Item.GetComponent<Rigidbody>().AddForce(transform.forward * ThrowForce);
+            Item = null;
+            carryObject = true;
+            IsThrowable = true;
         }
     }
 }
