@@ -27,8 +27,8 @@ public class PlanePilot : MonoBehaviour
         transform.position += transform.forward * BoltNetwork.FrameDeltaTime * speed;
 
         speed -= transform.forward.y * BoltNetwork.FrameDeltaTime * 50.0f;
-
-        if(speed < 5.0f)
+        speed = 5.0f;
+        if (speed < 5.0f)
         {
             speed = 5.0f;
         } else if( speed > 150.0f)

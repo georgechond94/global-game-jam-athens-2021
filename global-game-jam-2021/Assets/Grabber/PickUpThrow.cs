@@ -8,6 +8,7 @@ public class PickUpThrow : MonoBehaviour
     private bool carryObject;
     private GameObject Item;
     private bool IsThrowable;
+    public string targetTag;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +23,7 @@ public class PickUpThrow : MonoBehaviour
             Ray directionRay = new Ray(transform.position, transform.forward);
             if (Physics.Raycast(directionRay, out var hit, 2f))
             {
-                if (hit.collider.tag == "Object")
+                if (hit.collider.tag == targetTag)
                 {
                     carryObject = true;
                     IsThrowable = true;
