@@ -129,7 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneGuid: 
   _serializerGuid: 3880d892-06cd-4063-b8f6-a7c3a06ff539
-  _prefabId: 6
+  _prefabId: 8
   _updateRate: 1
   _autoFreezeProxyFrames: 0
   _clientPredicted: 1
@@ -171,3 +171,4 @@ MonoBehaviour:
   bulletPrefab: {fileID: 0}
   bulletSpeed: 0
   ammo: 2
+  initBulletSpeed: 0
