@@ -645,9 +645,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b34646239b426348bf65262f635dad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: -6473076861437325127, guid: f4449d589ca08ae4baa2982326d071c9, type: 3}
-  bulletSpeed: 200
+  bulletPrefab: {fileID: 7857421372075619333, guid: dc1f0d2245c4d2140b0bf71badf3a18c, type: 3}
+  bulletSpeed: 10
   ammo: 200
+  initBulletSpeed: 0
 --- !u!114 &4183773147195670602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -661,6 +662,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ReticleTransform: {fileID: 2521168113096572446}
+  FocusingDistance: 70
+  shooting: {fileID: 0}
 --- !u!114 &805549508118543300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -694,7 +697,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3246473258090096491}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 960c7e796ef3fc04a95a7c6910322337, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1410,12 +1413,24 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2506950335847870370, guid: 649e9237a5dcd1a4b883dfcdb5ee4636, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2506950335847870370, guid: 649e9237a5dcd1a4b883dfcdb5ee4636, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2506950335847870370, guid: 649e9237a5dcd1a4b883dfcdb5ee4636, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2506950335847870370, guid: 649e9237a5dcd1a4b883dfcdb5ee4636, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2506950335847870370, guid: 649e9237a5dcd1a4b883dfcdb5ee4636, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.146
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2506950335847870370, guid: 649e9237a5dcd1a4b883dfcdb5ee4636, type: 3}
       propertyPath: m_LocalPosition.z

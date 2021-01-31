@@ -12,6 +12,8 @@ public class PlayerFocusing : Bolt.EntityBehaviour<IFarmerState>
     public RectTransform ReticleTransform;
     private CinemachineVirtualCamera mainCamera;
     private CinemachineVirtualCamera aimCamera;
+    public float FocusingDistance = 70f;
+    public Shooting shooting;
 
     private CancellationTokenSource cancellationTokenSource;
     // Start is called before the first frame update
@@ -24,27 +26,25 @@ public class PlayerFocusing : Bolt.EntityBehaviour<IFarmerState>
         var virtualCameras = Resources.FindObjectsOfTypeAll<CinemachineVirtualCamera>();
         mainCamera = virtualCameras.FirstOrDefault(vc => vc.tag == "VirtualCamera");
         aimCamera = virtualCameras.FirstOrDefault(vc => vc.tag == "VirtualCameraFocus");
+        shooting = GetComponent<Shooting>();
     }
 
     // Update is called once per frame
     public override void SimulateOwner()
     {
-        if (Input.GetButton("Fire2") && !aimCamera.gameObject.activeInHierarchy)
+        var enemy = FindClosestEnemy("Magpie", FocusingDistance, out float distance);
+
+        if (enemy != null && Input.GetButton("Fire2") && !aimCamera.gameObject.activeInHierarchy)
         {
+            shooting.bulletSpeed = distance;
             mainCamera.gameObject.SetActive(false);
             aimCamera.gameObject.SetActive(true);
-            var enemy = FindClosestEnemy(tag);
-            if (enemy != null)
-            {
-                Debug.LogError("asd");
-                aimCamera.LookAt = enemy.transform;
-            }
+            aimCamera.LookAt = enemy.transform;
             SetActiveAsync(ReticleTransform.gameObject);
-
-
         }
         else if (!Input.GetButton("Fire2") && !mainCamera.gameObject.activeInHierarchy)
         {
+            shooting.bulletSpeed = shooting.initBulletSpeed;
             mainCamera.gameObject.SetActive(true);
             aimCamera.gameObject.SetActive(false);
             ReticleTransform.gameObject.SetActive(false);
@@ -52,17 +52,17 @@ public class PlayerFocusing : Bolt.EntityBehaviour<IFarmerState>
 
         }
 
-        if (aimCamera.gameObject.activeInHierarchy)
+        /*if (aimCamera.gameObject.activeInHierarchy)
         {
             transform.rotation = Quaternion.Lerp(transform.rotation, new Quaternion(
                 transform.rotation.x,
                 aimCamera.transform.rotation.y,
                 transform.rotation.z,
                 aimCamera.transform.rotation.w), 3f * BoltNetwork.FrameDeltaTime);
-        }
+        }*/
     }
 
-    public GameObject FindClosestEnemy(string tag)
+    public GameObject FindClosestEnemy(string tag, float threshold, out float dist)
     {
         GameObject[] gos;
         gos = GameObject.FindGameObjectsWithTag(tag);
@@ -73,12 +73,13 @@ public class PlayerFocusing : Bolt.EntityBehaviour<IFarmerState>
         {
             Vector3 diff = go.transform.position - position;
             float curDistance = diff.sqrMagnitude;
-            if (curDistance < distance)
+            if (curDistance < distance && curDistance < threshold)
             {
                 closest = go;
                 distance = curDistance;
             }
         }
+        dist = distance;
         return closest;
     }
 

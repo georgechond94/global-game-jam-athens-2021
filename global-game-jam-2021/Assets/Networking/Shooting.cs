@@ -9,11 +9,12 @@ public class Shooting : Bolt.EntityBehaviour<IFarmerState>
     public Rigidbody bulletPrefab;
     public float bulletSpeed;
     public int ammo = 2;
-
+    public float initBulletSpeed;
     private Animator animator;
 
     public override void Attached()
     {
+        initBulletSpeed = bulletSpeed;
         state.OnShoot = Shoot;
         state.OnPickUp = PickUp;
 
@@ -64,16 +65,36 @@ public class Shooting : Bolt.EntityBehaviour<IFarmerState>
     private void PickUp()
     {
         var grabber = transform.Find("Grabber");
-        Ray directionRay = new Ray(grabber.transform.position, grabber.transform.forward);
-        if (Physics.Raycast(directionRay, out var hit, 200f))
+        var item = FindClosest("Throwable", 20f, out float dist);
+        //Ray directionRay = new Ray(grabber.transform.position, -grabber.transform.up);
+        if (item != null)
         {
-            if (hit.collider.tag == "Throwable")
-            {
-                ammo++;
-                //Destroy(hit.collider.gameObject);
-                BoltNetwork.Destroy(hit.collider.gameObject);
-            }
 
+            ammo++;
+            //Destroy(hit.collider.gameObject);
+            BoltNetwork.Destroy(item);
         }
     }
+
+    public GameObject FindClosest(string tag, float threshold, out float dist)
+    {
+        GameObject[] gos;
+        gos = GameObject.FindGameObjectsWithTag(tag);
+        GameObject closest = null;
+        float distance = Mathf.Infinity;
+        Vector3 position = transform.position;
+        foreach (GameObject go in gos)
+        {
+            Vector3 diff = go.transform.position - position;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance < distance && curDistance < threshold)
+            {
+                closest = go;
+                distance = curDistance;
+            }
+        }
+        dist = distance;
+        return closest;
+    }
+
 }
