@@ -29,12 +29,8 @@ public class Farmer_Controller : Bolt.EntityBehaviour<IFarmerState>
 
     private bool isMoving = false;
     // Start is called before the first frame update
-    void Start()
+    public override void Attached()
     {
-        if (!entity.IsOwner)
-        {
-            return;
-        }
         animator = GetComponent<Animator>();
 
         camera = Resources.FindObjectsOfTypeAll<CinemachineBrain>().FirstOrDefault();
@@ -49,8 +45,9 @@ public class Farmer_Controller : Bolt.EntityBehaviour<IFarmerState>
     }
 
     // Update is called once per frame
-    void Update()
+    public override void SimulateOwner()
     {
+        
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 

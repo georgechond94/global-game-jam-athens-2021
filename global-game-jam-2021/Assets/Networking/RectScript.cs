@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RectScript : MonoBehaviour
+public class RectScript : Bolt.EntityBehaviour<IFarmerState>
 {
     private RectTransform reticle;
 
@@ -14,13 +14,13 @@ public class RectScript : MonoBehaviour
 
     private float currectSize;
     // Start is called before the first frame update
-    void Start()
+    public override void Attached()
     {
         reticle = GetComponent<RectTransform>();
     }
 
     // Update is called once per frame  
-    void Update()
+    public override void SimulateOwner()
     {
         if (IsMoving)
         {

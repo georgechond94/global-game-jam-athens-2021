@@ -15,7 +15,7 @@ public class PlayerFocusing : Bolt.EntityBehaviour<IFarmerState>
 
     private CancellationTokenSource cancellationTokenSource;
     // Start is called before the first frame update
-    void Start()
+    public override void Attached()
     {
         if (!entity.IsOwner)
         {
@@ -27,12 +27,8 @@ public class PlayerFocusing : Bolt.EntityBehaviour<IFarmerState>
     }
 
     // Update is called once per frame
-    void Update()
+    public override void SimulateOwner()
     {
-        if (!entity.IsOwner)
-        {
-            return;
-        }
         if (Input.GetButton("Fire2") && !aimCamera.gameObject.activeInHierarchy)
         {
             mainCamera.gameObject.SetActive(false);

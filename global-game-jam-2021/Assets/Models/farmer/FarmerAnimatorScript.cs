@@ -4,59 +4,75 @@ using UnityEngine;
 
 public class FarmerAnimatorScript : Bolt.EntityBehaviour<IFarmerState>
 {
-    private Animator animator;
+    // private Animator animator;
     // Start is called before the first frame update
-    void Start()
+
+
+    public override void Attached()
     {
-        animator = GetComponent<Animator>();
+        state.SetAnimator(GetComponent<Animator>());
     }
 
+
     // Update is called once per frame
-    void Update()
+    public override void SimulateOwner()
     {
         if (entity.IsOwner)
         {
 
-
-            foreach (AnimatorControllerParameter parameter in animator.parameters)
-            {
-                if (parameter.type == AnimatorControllerParameterType.Bool)
-                {
-                    animator.SetBool(parameter.name, false);
-                }
-            }
+            state.isWalking = false;
+            state.isWalkingBackwards = false;
+            state.isTurningRight = false;
+            state.isTurningLeft = false;
+            state.isRunning = false;
 
             if (Input.GetAxis("Horizontal") > 0f)
             {
-                animator.SetBool("IsTurningRight", true);
+                state.isTurningRight = true;
                 return;
             }
 
             if (Input.GetAxis("Horizontal") < 0f)
             {
-                animator.SetBool("IsTurningLeft", true);
+                state.isTurningLeft = true;
                 return;
             }
 
             if (Input.GetAxis("Vertical") > 0f && Input.GetKey(KeyCode.LeftShift))
             {
-                animator.SetBool("IsRunning", true);
+                state.isRunning = true;
                 return;
 
             }
 
             if (Input.GetAxis("Vertical") > 0f && !Input.GetKey(KeyCode.LeftShift))
             {
-                animator.SetBool("IsWalking", true);
+                state.isWalking = true;
                 return;
 
             }
 
             if (Input.GetAxis("Vertical") < 0f)
             {
-                animator.SetBool("IsWalkingBackwards", true);
+                state.isWalkingBackwards = true;
 
             }
+
         }
+    }
+    public void Update()
+    {
+
+
+        state.Animator.SetBool("IsTurningRight", state.isTurningRight);
+
+        state.Animator.SetBool("IsTurningLeft", state.isTurningLeft);
+
+        state.Animator.SetBool("IsRunning", state.isRunning);
+
+        state.Animator.SetBool("IsWalking", state.isWalking);
+
+        state.Animator.SetBool("IsWalkingBackwards", state.isWalkingBackwards);
+
     }
 }

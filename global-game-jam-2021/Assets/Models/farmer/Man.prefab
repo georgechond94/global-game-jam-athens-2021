@@ -647,7 +647,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: -6473076861437325127, guid: f4449d589ca08ae4baa2982326d071c9, type: 3}
   bulletSpeed: 2000
-  ammo: 2
+  ammo: 200
 --- !u!114 &4183773147195670602
 MonoBehaviour:
   m_ObjectHideFlags: 0

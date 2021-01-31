@@ -1,6 +1,7 @@
 
 using System.Threading.Tasks;
 using Bolt;
+using Cinemachine;
 using UnityEngine;
 
 public class Shooting : Bolt.EntityBehaviour<IFarmerState>
@@ -10,6 +11,7 @@ public class Shooting : Bolt.EntityBehaviour<IFarmerState>
     public int ammo = 2;
 
     private Animator animator;
+
     public override void Attached()
     {
         state.OnShoot = Shoot;
@@ -17,29 +19,8 @@ public class Shooting : Bolt.EntityBehaviour<IFarmerState>
 
         animator = GetComponent<Animator>();
     }
-    private async void Shoot()
-    {
 
-        if (ammo > 0)
-        {
-
-            animator.SetTrigger("IsThrowing");
-            await Task.Delay(800);
-            
-            var muzzle = transform.Find("GFX/Muzzle");
-            //var bulletClone = BoltNetwork.Instantiate(bulletPrefab.gameObject, muzzle.transform.position, this.transform.rotation);
-            Rigidbody bulletClone = Instantiate(bulletPrefab, muzzle.transform.position, this.transform.rotation);
-            bulletClone.GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed);
-
-           // bulletClone.velocity = transform.TransformDirection(new Vector3(0, 0, bulletSpeed));
-            ammo--;
-        }
-        
-       
-        
-    }
-
-    public void Update()
+    public override void SimulateOwner()
     {
         
         if(Input.GetButtonDown("Fire1") && entity.IsOwner)
@@ -50,6 +31,33 @@ public class Shooting : Bolt.EntityBehaviour<IFarmerState>
         if (Input.GetKeyDown(KeyCode.F) && entity.IsOwner)
         {
             state.PickUp();
+        }
+    }
+
+    private async void Shoot()
+    {
+
+        if (ammo > 0)
+        {
+
+            var activeCamera = Object.FindObjectOfType<CinemachineBrain>();
+
+            float x = Screen.width / 2;
+            float y = Screen.height / 2;
+
+            var ray = activeCamera.GetComponent<Camera>().ScreenPointToRay(new Vector3(x, y, 0));
+            animator.SetTrigger("IsThrowing");
+            await Task.Delay(800);
+
+            var muzzle = transform.Find("GFX/Muzzle");
+            //var bulletClone = BoltNetwork.Instantiate(bulletPrefab.gameObject, muzzle.transform.position, this.transform.rotation);
+            Rigidbody bulletClone = Instantiate(bulletPrefab, muzzle.transform.position, this.transform.rotation);
+            bulletClone.velocity = ray.direction * bulletSpeed;
+
+            //bulletClone.GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed);
+
+            // bulletClone.velocity = transform.TransformDirection(new Vector3(0, 0, bulletSpeed));
+            ammo--;
         }
     }
 
