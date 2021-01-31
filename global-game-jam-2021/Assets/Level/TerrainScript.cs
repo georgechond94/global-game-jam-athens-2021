@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using UnityEngine;
 using UnityEditor;
 using System;
@@ -202,3 +204,4 @@ internal class Terrain2Obj : EditorWindow
       EditorUtility.DisplayProgressBar("Saving...", "", Mathf.InverseLerp(0, _totalCount, ++_tCount));
    }
 }
+#endif
