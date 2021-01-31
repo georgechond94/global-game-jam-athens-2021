@@ -516,7 +516,7 @@ GameObject:
   - component: {fileID: 2808206529821464357}
   m_Layer: 0
   m_Name: Man
-  m_TagString: Untagged
+  m_TagString: Farmer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -646,7 +646,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: -6473076861437325127, guid: f4449d589ca08ae4baa2982326d071c9, type: 3}
-  bulletSpeed: 2000
+  bulletSpeed: 200
   ammo: 200
 --- !u!114 &4183773147195670602
 MonoBehaviour:

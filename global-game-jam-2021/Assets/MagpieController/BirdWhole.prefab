@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 8837232693983832087}
   m_Layer: 0
   m_Name: BirdWhole
-  m_TagString: Untagged
+  m_TagString: Magpie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

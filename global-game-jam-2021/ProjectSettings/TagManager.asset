@@ -10,6 +10,8 @@ TagManager:
   - Throwable
   - Camera
   - Grabbable
+  - Magpie
+  - Farmer
   layers:
   - Default
   - TransparentFX

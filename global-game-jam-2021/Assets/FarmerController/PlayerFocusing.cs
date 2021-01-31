@@ -33,6 +33,12 @@ public class PlayerFocusing : Bolt.EntityBehaviour<IFarmerState>
         {
             mainCamera.gameObject.SetActive(false);
             aimCamera.gameObject.SetActive(true);
+            var enemy = FindClosestEnemy(tag);
+            if (enemy != null)
+            {
+                Debug.LogError("asd");
+                aimCamera.LookAt = enemy.transform;
+            }
             SetActiveAsync(ReticleTransform.gameObject);
 
 
@@ -54,6 +60,26 @@ public class PlayerFocusing : Bolt.EntityBehaviour<IFarmerState>
                 transform.rotation.z,
                 aimCamera.transform.rotation.w), 3f * BoltNetwork.FrameDeltaTime);
         }
+    }
+
+    public GameObject FindClosestEnemy(string tag)
+    {
+        GameObject[] gos;
+        gos = GameObject.FindGameObjectsWithTag(tag);
+        GameObject closest = null;
+        float distance = Mathf.Infinity;
+        Vector3 position = transform.position;
+        foreach (GameObject go in gos)
+        {
+            Vector3 diff = go.transform.position - position;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance < distance)
+            {
+                closest = go;
+                distance = curDistance;
+            }
+        }
+        return closest;
     }
 
     private async void SetActiveAsync(GameObject gameObject)
