@@ -18,13 +18,14 @@ public class PickUpThrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Item == null && Input.GetButton("Fire3"))
+        if (Item == null && Input.GetKeyDown(KeyCode.F))
         {
             Ray directionRay = new Ray(transform.position, transform.forward);
-            if (Physics.Raycast(directionRay, out var hit, 2f))
+            if (Physics.Raycast(directionRay, out var hit, 400f))
             {
                 if (hit.collider.tag == targetTag)
                 {
+                    Debug.LogError("mpike");
                     carryObject = true;
                     IsThrowable = true;
 
@@ -39,7 +40,7 @@ public class PickUpThrow : MonoBehaviour
 
         }
 
-        if (Item != null && Input.GetButton("Fire1") && IsThrowable)
+        if (Item != null && Input.GetButtonDown("Fire1") && IsThrowable)
         {
             transform.DetachChildren();
             Item.GetComponent<Rigidbody>().isKinematic = false;

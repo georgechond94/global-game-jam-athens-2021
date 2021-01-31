@@ -1,4 +1,5 @@
 
+using System.Threading.Tasks;
 using Bolt;
 using UnityEngine;
 
@@ -8,16 +9,23 @@ public class Shooting : Bolt.EntityBehaviour<IFarmerState>
     public float bulletSpeed;
     public int ammo = 2;
 
+    private Animator animator;
     public override void Attached()
     {
         state.OnShoot = Shoot;
         state.OnPickUp = PickUp;
+
+        animator = GetComponent<Animator>();
     }
-    private void Shoot()
+    private async void Shoot()
     {
 
         if (ammo > 0)
         {
+
+            animator.SetTrigger("IsThrowing");
+            await Task.Delay(800);
+            
             var muzzle = transform.Find("GFX/Muzzle");
             //var bulletClone = BoltNetwork.Instantiate(bulletPrefab.gameObject, muzzle.transform.position, this.transform.rotation);
             Rigidbody bulletClone = Instantiate(bulletPrefab, muzzle.transform.position, this.transform.rotation);
@@ -39,7 +47,7 @@ public class Shooting : Bolt.EntityBehaviour<IFarmerState>
             state.Shoot();
         }
 
-        if (Input.GetButtonDown("Fire3") && entity.IsOwner)
+        if (Input.GetKeyDown(KeyCode.F) && entity.IsOwner)
         {
             state.PickUp();
         }

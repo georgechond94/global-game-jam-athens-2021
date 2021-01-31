@@ -7,7 +7,7 @@ using Bolt;
 using Cinemachine;
 using UnityEngine;
 
-public class PlayerFocusing : MonoBehaviour
+public class PlayerFocusing : Bolt.EntityBehaviour<IFarmerState>
 {
     public RectTransform ReticleTransform;
     private CinemachineVirtualCamera mainCamera;
@@ -17,6 +17,10 @@ public class PlayerFocusing : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (!entity.IsOwner)
+        {
+            return;
+        }
         var virtualCameras = Resources.FindObjectsOfTypeAll<CinemachineVirtualCamera>();
         mainCamera = virtualCameras.FirstOrDefault(vc => vc.tag == "VirtualCamera");
         aimCamera = virtualCameras.FirstOrDefault(vc => vc.tag == "VirtualCameraFocus");
@@ -25,6 +29,10 @@ public class PlayerFocusing : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!entity.IsOwner)
+        {
+            return;
+        }
         if (Input.GetButton("Fire2") && !aimCamera.gameObject.activeInHierarchy)
         {
             mainCamera.gameObject.SetActive(false);
@@ -40,6 +48,15 @@ public class PlayerFocusing : MonoBehaviour
             ReticleTransform.gameObject.SetActive(false);
             cancellationTokenSource.Cancel();
 
+        }
+
+        if (aimCamera.gameObject.activeInHierarchy)
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, new Quaternion(
+                transform.rotation.x,
+                aimCamera.transform.rotation.y,
+                transform.rotation.z,
+                aimCamera.transform.rotation.w), 3f * BoltNetwork.FrameDeltaTime);
         }
     }
 

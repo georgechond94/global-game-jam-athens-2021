@@ -11,7 +11,7 @@ public class NetworkCallbacks : GlobalEventListener
     public override void SceneLoadLocalDone(string scene)
     {
         GameObject prefab;
-        if (!BoltNetwork.IsServer)
+        if (BoltNetwork.IsServer)
         {
             prefab = playerPrefab;
         }

@@ -4,7 +4,7 @@ using System.Linq;
 using Cinemachine;
 using UnityEngine;
 
-public class Farmer_Controller : MonoBehaviour
+public class Farmer_Controller : Bolt.EntityBehaviour<IFarmerState>
 {
     Farmer_Input farmerInput;
     Rigidbody mybody;
@@ -19,6 +19,7 @@ public class Farmer_Controller : MonoBehaviour
 
     public Transform groundCheck;
     CapsuleCollider theCollider;
+    private Animator animator;
 
     private Cinemachine.CinemachineBrain camera;
 
@@ -26,9 +27,16 @@ public class Farmer_Controller : MonoBehaviour
     bool isGrounded;
     bool canJump;
 
+    private bool isMoving = false;
     // Start is called before the first frame update
     void Start()
     {
+        if (!entity.IsOwner)
+        {
+            return;
+        }
+        animator = GetComponent<Animator>();
+
         camera = Resources.FindObjectsOfTypeAll<CinemachineBrain>().FirstOrDefault();
 
         farmerInput = GetComponent<Farmer_Input>();
