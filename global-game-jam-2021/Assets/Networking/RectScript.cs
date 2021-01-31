@@ -14,14 +14,18 @@ public class RectScript : Bolt.EntityBehaviour<IFarmerState>
 
     private float currectSize;
     // Start is called before the first frame update
-    public override void Attached()
+    public void Start()
     {
         reticle = GetComponent<RectTransform>();
     }
 
     // Update is called once per frame  
-    public override void SimulateOwner()
+    public void Update()
     {
+        if (!entity.IsOwner)
+        {
+            return;
+        }
         if (IsMoving)
         {
             currectSize = Mathf.Lerp(currectSize, maxSize, BoltNetwork.FrameDeltaTime * speed);

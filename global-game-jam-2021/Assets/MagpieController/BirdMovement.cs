@@ -23,7 +23,7 @@ public class BirdMovement : Bolt.EntityBehaviour<IBirdState>
 
 
     // Start is called before the first frame update
-    public override void Attached()
+    public void Start()
     {
         if (!entity.IsOwner)
         {
@@ -33,8 +33,12 @@ public class BirdMovement : Bolt.EntityBehaviour<IBirdState>
         speed = walkSpeed;
     }
 
-    public override void SimulateOwner()
+    public void Update()
     {
+        if (!entity.IsOwner)
+        {
+            return;
+        }
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 

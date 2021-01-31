@@ -8,19 +8,24 @@ public class NetworkCallbacks : GlobalEventListener
     public GameObject playerPrefab;
     public GameObject birdPrefab;
     public GameObject[] playerSpawnLocations;
+    public GameObject[] birdSpawnLocations;
     public override void SceneLoadLocalDone(string scene)
     {
         GameObject prefab;
+        GameObject spawn;
         if (BoltNetwork.IsServer)
         {
             prefab = playerPrefab;
+            var spawnLoc1 = Random.Range(0, playerSpawnLocations.Length);
+            spawn = playerSpawnLocations[spawnLoc1];
         }
         else
         {
             prefab = birdPrefab;
+            var spawnLoc1 = Random.Range(0, birdSpawnLocations.Length);
+            spawn = birdSpawnLocations[spawnLoc1];
         }
-        var spawnLoc = Random.Range(0, playerSpawnLocations.Length);
-        GameObject newPlayer = BoltNetwork.Instantiate(prefab, playerSpawnLocations[spawnLoc].transform.position, Quaternion.identity);
+        GameObject newPlayer = BoltNetwork.Instantiate(prefab, spawn.transform.position, Quaternion.identity);
         var virtualCameras = Resources.FindObjectsOfTypeAll<CinemachineVirtualCamera>();
         foreach (var cinemachineVirtualCamera in virtualCameras)
         {

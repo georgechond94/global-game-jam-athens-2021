@@ -21,7 +21,7 @@ public class Shooting : Bolt.EntityBehaviour<IFarmerState>
         animator = GetComponent<Animator>();
     }
 
-    public override void SimulateOwner()
+    public void Update()
     {
         
         if(Input.GetButtonDown("Fire1") && entity.IsOwner)
@@ -64,7 +64,6 @@ public class Shooting : Bolt.EntityBehaviour<IFarmerState>
 
     private void PickUp()
     {
-        var grabber = transform.Find("Grabber");
         var item = FindClosest("Throwable", 20f, out float dist);
         //Ray directionRay = new Ray(grabber.transform.position, -grabber.transform.up);
         if (item != null)

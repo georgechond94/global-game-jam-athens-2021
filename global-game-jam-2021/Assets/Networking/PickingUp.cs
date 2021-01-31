@@ -40,19 +40,38 @@ public class PickingUp : Bolt.EntityBehaviour<IBirdState>
 
     private void PickUp()
     {
-        var grabber = transform.Find("Grabber");
-        Ray directionRay = new Ray(grabber.transform.position, -grabber.transform.up);
-        if (Item == null && Physics.Raycast(directionRay, out var hit, 200f))
+        var item = FindClosest("Grabbable", 20f, out float dist);
+
+        if (Item == null && item)
         {
-            if (hit.collider.tag == "Grabbable")
-            {
-                Item = hit.collider.gameObject;
-                Item.transform.SetParent(transform);
-                Item.transform.position = transform.position;
+            var grb = transform.Find("Grabber");
+                Item = item;
+                Item.transform.SetParent(grb);
+                Item.transform.position = grb.transform.position;
                 Item.GetComponent<Rigidbody>().isKinematic = true;
                 Item.GetComponent<Rigidbody>().useGravity = false;
-            }
-
         }
+    }
+
+
+    public GameObject FindClosest(string tag, float threshold, out float dist)
+    {
+        GameObject[] gos;
+        gos = GameObject.FindGameObjectsWithTag(tag);
+        GameObject closest = null;
+        float distance = Mathf.Infinity;
+        Vector3 position = transform.position;
+        foreach (GameObject go in gos)
+        {
+            Vector3 diff = go.transform.position - position;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance < distance && curDistance < threshold)
+            {
+                closest = go;
+                distance = curDistance;
+            }
+        }
+        dist = distance;
+        return closest;
     }
 }

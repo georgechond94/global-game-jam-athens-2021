@@ -17,7 +17,7 @@ public class PlayerFocusing : Bolt.EntityBehaviour<IFarmerState>
 
     private CancellationTokenSource cancellationTokenSource;
     // Start is called before the first frame update
-    public override void Attached()
+    public void Start()
     {
         if (!entity.IsOwner)
         {
@@ -30,13 +30,17 @@ public class PlayerFocusing : Bolt.EntityBehaviour<IFarmerState>
     }
 
     // Update is called once per frame
-    public override void SimulateOwner()
+    public void Update()
     {
+        if (!entity.IsOwner)
+        {
+            return;
+        }
         var enemy = FindClosestEnemy("Magpie", FocusingDistance, out float distance);
 
         if (enemy != null && Input.GetButton("Fire2") && !aimCamera.gameObject.activeInHierarchy)
         {
-            shooting.bulletSpeed = distance;
+            shooting.bulletSpeed = distance * 2f;
             mainCamera.gameObject.SetActive(false);
             aimCamera.gameObject.SetActive(true);
             aimCamera.LookAt = enemy.transform;
@@ -44,7 +48,7 @@ public class PlayerFocusing : Bolt.EntityBehaviour<IFarmerState>
         }
         else if (!Input.GetButton("Fire2") && !mainCamera.gameObject.activeInHierarchy)
         {
-            shooting.bulletSpeed = shooting.initBulletSpeed;
+            shooting.bulletSpeed = shooting.initBulletSpeed * 2f;
             mainCamera.gameObject.SetActive(true);
             aimCamera.gameObject.SetActive(false);
             ReticleTransform.gameObject.SetActive(false);
